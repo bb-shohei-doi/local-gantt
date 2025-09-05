@@ -41,7 +41,7 @@ tr {
 }
 
 .btn {
-    padding: 6px 12px;
+    padding: 0px 12px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -218,7 +218,7 @@ tr {
 
 /* ガントチャートエリア */
 .chart-area {
-    padding-top: 14px;
+    padding-top: 15px;
     width: 60%;
     background-color: white;
     display: flex;
@@ -235,7 +235,6 @@ tr {
 
 /* チャートヘッダー */
 .chart-header {
-    border-bottom: 2px solid #333;
     background-color: #f8f9fa;
     position: sticky;
     top: 0;
@@ -280,6 +279,14 @@ tr {
     flex: 1;
     overflow: auto;
     scroll-behavior: smooth;
+}
+
+#task-tbody td {
+    height: 26px;
+}
+
+.chart-body div.chart-row {
+    height: 26px;
 }
 
 .chart-row {
@@ -418,9 +425,4 @@ tr {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #a8a8a8;
-}
-
-.btn {
-    padding-top: 0px;
-    padding-bottom: 0px;
 }

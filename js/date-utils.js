@@ -18,6 +18,7 @@ class DateUtils {
      */
     static parseDate(dateString) {
         if (!dateString) return null;
+        if (dateString.length !== 10) return null;
         
         // YYYY/MM/DD または YYYY-MM-DD 形式に対応
         const normalizedString = dateString.replace(/-/g, '/');
