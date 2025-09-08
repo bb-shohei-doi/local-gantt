@@ -234,7 +234,7 @@ class GanttApp {
                 
                 // 日付フィールドにプレースホルダーを追加
                 if (fieldInfo.type === 'date') {
-                    input.placeholder = 'YYYY/MM/DD';
+                    input.placeholder = '年/月/日';
                 }
 
                 cell.appendChild(input);
