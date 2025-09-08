@@ -18,13 +18,27 @@ class DateUtils {
      */
     static parseDate(dateString) {
         if (!dateString) return null;
-        if (dateString.length !== 10) return null;
+        
+        // 文字列の正規化
+        let normalizedString = dateString.toString().trim();
         
         // YYYY/MM/DD または YYYY-MM-DD 形式に対応
-        const normalizedString = dateString.replace(/-/g, '/');
+        normalizedString = normalizedString.replace(/-/g, '/');
+        
+        // 日付の妥当性をチェック
+        if (!/^\d{4}\/\d{1,2}\/\d{1,2}$/.test(normalizedString)) {
+            console.warn('parseDate: invalid format', dateString);
+            return null;
+        }
+        
         const date = new Date(normalizedString);
         
-        return isNaN(date.getTime()) ? null : date;
+        if (isNaN(date.getTime())) {
+            console.warn('parseDate: invalid date', dateString);
+            return null;
+        }
+        
+        return date;
     }
 
     /**
@@ -50,9 +64,17 @@ class DateUtils {
         const d1 = new Date(date1);
         const d2 = new Date(date2);
         
-        return d1.getFullYear() === d2.getFullYear() &&
-               d1.getMonth() === d2.getMonth() &&
-               d1.getDate() === d2.getDate();
+        // 無効な日付をチェック
+        if (isNaN(d1.getTime()) || isNaN(d2.getTime())) {
+            console.warn('isSameDate: invalid dates', { date1, date2 });
+            return false;
+        }
+        
+        const result = d1.getFullYear() === d2.getFullYear() &&
+                      d1.getMonth() === d2.getMonth() &&
+                      d1.getDate() === d2.getDate();
+        
+        return result;
     }
 
     /**

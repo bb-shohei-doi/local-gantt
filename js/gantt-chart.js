@@ -199,6 +199,17 @@ class GanttChart {
         const startIndex = this.findDateIndex(dates, startDate);
         const endIndex = this.findDateIndex(dates, endDate);
         
+        // デバッグ情報を出力
+        console.log(`Creating ${type} bar for ${text}:`, {
+            startDate: DateUtils.formatDate(startDate),
+            endDate: DateUtils.formatDate(endDate),
+            startIndex,
+            endIndex,
+            totalDates: dates.length,
+            dateRangeStart: DateUtils.formatDate(dates[0]),
+            dateRangeEnd: DateUtils.formatDate(dates[dates.length - 1])
+        });
+        
         if (startIndex >= 0 && endIndex >= 0) {
             const bar = document.createElement('div');
             bar.className = `gantt-bar ${type}`;
@@ -231,6 +242,13 @@ class GanttChart {
             }
             
             row.appendChild(bar);
+        } else {
+            console.warn(`Invalid date indices for ${type} bar:`, {
+                startDate: DateUtils.formatDate(startDate),
+                endDate: DateUtils.formatDate(endDate),
+                startIndex,
+                endIndex
+            });
         }
     }
 
@@ -238,7 +256,19 @@ class GanttChart {
      * 日付配列内での指定日のインデックスを取得
      */
     findDateIndex(dates, targetDate) {
-        return dates.findIndex(date => DateUtils.isSameDate(date, targetDate));
+        if (!targetDate || !dates) {
+            console.warn('findDateIndex: invalid parameters', { targetDate, datesLength: dates?.length });
+            return -1;
+        }
+        
+        const index = dates.findIndex(date => DateUtils.isSameDate(date, targetDate));
+        console.log('findDateIndex:', {
+            targetDate: DateUtils.formatDate(targetDate),
+            foundIndex: index,
+            foundDate: index >= 0 ? DateUtils.formatDate(dates[index]) : 'not found'
+        });
+        
+        return index;
     }
 
     /**
@@ -403,6 +433,7 @@ class GanttChart {
      */
     setCellWidth(width) {
         this.cellWidth = width;
+        ganttBarDragManager.setCellWidth(width);
         this.refresh();
     }
 }

@@ -198,14 +198,10 @@ class GanttApp {
         if (task.type === 'theme') {
             // テーマ行
             const themeCell = document.createElement('td');
+            themeCell.setAttribute('colspan', '8');
             themeCell.innerHTML = `<input type="text" class="theme-input task-input" value="${task.themeName}" data-field="themeName">`;
             row.appendChild(themeCell);
 
-            // 空のセルを追加
-            for (let i = 0; i < 7; i++) {
-                const emptyCell = document.createElement('td');
-                row.appendChild(emptyCell);
-            }
         } else {
             // タスク行
             const fields = [

@@ -340,6 +340,50 @@ tr {
     align-items: center;
     justify-content: center;
     z-index: 50;
+    cursor: move;
+}
+
+.gantt-bar:hover {
+    opacity: 1 !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* ガントバーのリサイズハンドル */
+.gantt-bar::before,
+.gantt-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: ew-resize;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.gantt-bar::before {
+    left: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.gantt-bar::after {
+    right: 0;
+    border-radius: 0 3px 3px 0;
+}
+
+.gantt-bar:hover::before,
+.gantt-bar:hover::after {
+    opacity: 1;
+}
+
+.gantt-bar.dragging {
+    z-index: 100;
+    opacity: 0.8;
+}
+
+.gantt-bar.resizing {
+    z-index: 100;
 }
 
 .gantt-bar.planned {
