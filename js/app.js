@@ -242,6 +242,12 @@ class GanttApp {
             });
         }
 
+        row.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', (e) => {
+                this.handleTaskRowClick(e);
+            });
+        });
+
         return row;
     }
 
@@ -594,11 +600,6 @@ class GanttApp {
      * タスク行クリックを処理
      */
     handleTaskRowClick(e) {
-        // 入力フィールドやドラッグハンドル、チェックボックスのクリックは除外
-        if (e.target.matches('input, .drag-handle, .drag-handle *')) {
-            return;
-        }
-
         const row = e.target.closest('tr');
         if (!row) return;
 
